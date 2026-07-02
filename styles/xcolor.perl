@@ -2,15 +2,6 @@ package main;
 
 do_require_package('color');
 
-# Perl doesn't implement the power function between two reals.
-# We can use the extension of exponentiation to positive real base to compute
-# our result:
-# x^y = exp(y * ln(x))
-sub xcolor_power {
-    local($x, $gamma) = @_;
-    return exp($gamma * log($x));
-}
-
 sub get_wave_color {
     # cf: From xcolor package documentation (v3.02 (2024/09/29)), we can define
     # a color from its wave length (considering a visible spectrum of [380, 780]).
@@ -45,11 +36,7 @@ sub get_wave_color {
     if    ($_ < 420) { $f = 0.3 + 0.7*( ($_-380) / (420-380) ); }
     elsif ($_ > 700) { $f = 0.3 + 0.7*( (780-$_) / (780-700) ); }
     else             { $f = 1; }
-    print '$l='."$_, ".'($r,$g,$b)='."($r,$g,$b)\n";
-    $r = &xcolor_power($f*$r, 0.8) if ($r > 0);
-    $g = &xcolor_power($f*$g, 0.8) if ($g > 0);
-    $b = &xcolor_power($f*$b, 0.8) if ($b > 0);
-    &get_rgb_color($r,$g,$b);
+    &get_rgb_color(($f*$r)**.8, ($f*$g)**.8, ($f*$b)**.8);
 }
 
 sub get_WAVE_color {
@@ -67,11 +54,7 @@ sub get_WAVE_color {
     if    ($_ < 420) { $f = 0.3 + 0.7*( ($_-380) / (420-380) ); }
     elsif ($_ > 700) { $f = 0.3 + 0.7*( (780-$_) / (780-700) ); }
     else             { $f = 1; }
-    print '$l='."$_, ".'($r,$g,$b)='."($r,$g,$b)\n";
-    $r = &xcolor_power($f*$r, 0.8) if ($r > 0);
-    $g = &xcolor_power($f*$g, 0.8) if ($g > 0);
-    $b = &xcolor_power($f*$b, 0.8) if ($b > 0);
-    &get_rgb_color($r,$g,$b);
+    &get_rgb_color(($f*$r)**.8, ($f*$g)**.8, ($f*$b)**.8);
 }
 
 1;
