@@ -150,6 +150,9 @@ sub process_lstlisting {
   # Now apply all the other specified options
   @curopts{keys %opts} = (values %opts);
 
+  # Apply gobble option (removing the n first characters of a line)
+  $contents =~ s/(^|\n).{$curopts{'gobble'}}/$1/oeg;
+
   $lst_name = $curopts{'name'};
 
   # For wrapped lstinputlisting - replace file name with file contents

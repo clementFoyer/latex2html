@@ -16771,7 +16771,8 @@ sub convert_length { # clean
       'framerule'       => '0.4pt',
       'backgroundcolor' => '',
       'rulecolor'       => '',
-      'language'        => '' );
+      'language'        => '',
+      'gobble'          => 0  );
     # Languages having different names in lstlisting and source-highlight
     %lstset_langs = (
       'assembler'   => 'asm',
