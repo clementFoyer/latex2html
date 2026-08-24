@@ -15866,7 +15866,8 @@ sub styled_text_chunk {
 	return(join('',"<$span_tag ID=\"$env_id\">",$text,"<\/$span_tag>", $_));
     }
 
-    if (($USING_STYLES)&&($prefix =~ /($span_tag )?CLASS=\"(\w+)\"/o)) {
+    # CF: classes can be dash separated compound words
+    if (($USING_STYLES)&&($prefix =~ /($span_tag )?CLASS=\"([-\w]+)\"/o)) {
 	local($span_class) = $2;
 	$def_tag = (($1)? $1 : $span_tag." ");
 	$txt_style{$span_class} = "$type: $class "
