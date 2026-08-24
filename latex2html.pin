@@ -13426,6 +13426,19 @@ sub do_cmd_rbrace { "\}". $_[0]; }
 sub do_cmd_Vert { "||". $_[0]; }
 sub do_cmd_backslash { "\\". $_[0]; }
 
+sub do_cmd_texorpdfstring {
+    local($_) = @_;
+    local($next, $discarded);
+    # always print the first part
+    $next = &missing_braces unless (
+        (s/$next_pair_pr_rx/$next = $2;''/e)
+        ||(s/$next_pair_rx/$next = $2;''/e));
+    $discarded = &missing_braces unless (
+        (s/$next_pair_pr_rx/$discarded = $2;''/e)
+        ||(s/$next_pair_rx/$discarded = $2;''/e));
+    join('',$next,$_);
+}
+
 #RRM: for subscripts outside math-mode
 # e.g. in Chemical formulae
 sub do_cmd__sub {
